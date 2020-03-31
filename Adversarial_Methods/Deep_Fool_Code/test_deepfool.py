@@ -56,7 +56,7 @@ tf = transforms.Compose([transforms.Normalize(mean=[0, 0, 0], std=map(lambda x: 
                         transforms.ToPILImage(),
                         transforms.CenterCrop(224)])
 
-plt.figure()
-plt.imshow(tf(pert_image.cpu()[0]))
-plt.title(str_label_pert)
-plt.show()
+# plt.figure()
+# plt.imshow(tf(pert_image.cpu()[0]))
+# plt.title(str_label_pert)
+# plt.show()
