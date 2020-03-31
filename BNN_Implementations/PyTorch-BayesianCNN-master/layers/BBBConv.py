@@ -38,7 +38,7 @@ class BBBConv2d(ModuleWrapper):
         self.reset_parameters()
         self.name = name
         if cfg.record_mean_var:
-            self.mean_var_path = cfg.mean_var_dir + f"{self.name}.txt"
+            self.mean_var_path = cfg.mean_var_dir + "{}.txt".format(self.name)
 
     def reset_parameters(self):
         n = self.in_channels

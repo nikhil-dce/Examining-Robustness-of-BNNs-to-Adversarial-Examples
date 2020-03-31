@@ -107,8 +107,8 @@ def run(dataset, net_type):
         trainset, testset, valid_size, batch_size, num_workers)
     net = getModel(net_type, inputs, outputs).to(device)
 
-    ckpt_dir = f'checkpoints/{dataset}/bayesian'
-    ckpt_name = f'checkpoints/{dataset}/bayesian/model_{net_type}.pt'
+    ckpt_dir = 'checkpoints/{}/bayesian'.format(dataset)
+    ckpt_name = 'checkpoints/{}/bayesian/model_{}.pt'.format(dataset, net_type)
 
     if not os.path.exists(ckpt_dir):
         os.makedirs(ckpt_dir, exist_ok=True)
@@ -133,18 +133,45 @@ def run(dataset, net_type):
             torch.save(net.state_dict(), ckpt_name)
             valid_loss_max = valid_loss
 
+def evaluate(dataset, net_type):
+
+    valid_size = cfg.valid_size
+    valid_ens = cfg.valid_ens
+    batch_size = cfg.batch_size
+    num_workers = cfg.num_workers
+
+    trainset, testset, inputs, outputs = data.getDataset(dataset)
+    train_loader, valid_loader, test_loader = data.getDataloader(
+        trainset, testset, valid_size, batch_size, num_workers)
+    net = getModel(net_type, inputs, outputs).to(device)
+
+    ckpt_dir = 'checkpoints/{}/bayesian'.format(dataset)
+    ckpt_name = 'checkpoints/{}/bayesian/model_{}.pt'.format(dataset, net_type)
+
+    net.load_state_dict(torch.load(ckpt_name))
+
+    criterion = metrics.ELBO(len(testset)).to(device)
+    valid_loss, valid_acc = validate_model(net, criterion, test_loader, num_ens=valid_ens)
+
+    print('Validation Loss: {:.4f} \tValidation Accuracy: {:.4f}'.format(valid_loss, valid_acc))
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = "PyTorch Bayesian Model Training")
     parser.add_argument('--net_type', default='lenet', type=str, help='model')
     parser.add_argument('--dataset', default='MNIST', type=str, help='dataset = [MNIST/CIFAR10/CIFAR100]')
+    parser.add_argument('--evaluate', default=True, type=bool, help='evaluate')
     args = parser.parse_args()
 
-    if cfg.record_mean_var:
-        mean_var_dir = f"checkpoints/{args.dataset}/bayesian/{args.net_type}/"
-        cfg.mean_var_dir = mean_var_dir
-        if not os.path.exists(mean_var_dir):
-            os.makedirs(mean_var_dir, exist_ok=True)
-        for file in os.listdir(mean_var_dir):
-            os.remove(mean_var_dir + file)
+    if args.evaluate:
+        # evaluate the model here
+        evaluate(args.dataset, args.net_type)
+    else:
+        if cfg.record_mean_var:
+            mean_var_dir = "checkpoints/{}/bayesian/{}/".format(args.dataset, args.net_type)
+            cfg.mean_var_dir = mean_var_dir
+            if not os.path.exists(mean_var_dir):
+                os.makedirs(mean_var_dir, exist_ok=True)
+            for file in os.listdir(mean_var_dir):
+                os.remove(mean_var_dir + file)
 
-    run(args.dataset, args.net_type)
+        run(args.dataset, args.net_type)

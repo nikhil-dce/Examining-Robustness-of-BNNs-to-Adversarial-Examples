@@ -30,7 +30,7 @@ class BBBLinear(ModuleWrapper):
         self.kl_value = metrics.calculate_kl
         self.name = name
         if cfg.record_mean_var:
-            self.mean_var_path = cfg.mean_var_dir + f"{self.name}.txt"
+            self.mean_var_path = cfg.mean_var_dir + "{}.txt".format(self.name)
 
     def reset_parameters(self):
         stdv = 1. / math.sqrt(self.W.size(1))
