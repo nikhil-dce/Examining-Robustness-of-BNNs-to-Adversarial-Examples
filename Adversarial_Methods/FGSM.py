@@ -27,7 +27,7 @@ def fgsm_graybox(models, loss, images, labels, eps) :
         model.zero_grad()
     
     costs = [loss(output, labels).to(device) for output in outputs]
-    cost = torch.stack(costs dim=0).mean(dim=0)
+    cost = torch.stack(costs, dim=0).mean(dim=0)
     cost.backward()
     
     attack_images = images + eps*images.grad.sign()
