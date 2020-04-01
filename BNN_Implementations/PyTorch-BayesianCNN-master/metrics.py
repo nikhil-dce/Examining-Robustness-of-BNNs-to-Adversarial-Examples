@@ -9,7 +9,7 @@ class ELBO(nn.Module):
         super(ELBO, self).__init__()
         self.train_size = train_size
 
-    def forward(self, input, target, kl, kl_weight=1.0):
+    def forward(self, input, target, kl=0, kl_weight=1.0):
         assert not target.requires_grad
         return F.nll_loss(input, target, size_average=True) * self.train_size + kl_weight * kl
 
