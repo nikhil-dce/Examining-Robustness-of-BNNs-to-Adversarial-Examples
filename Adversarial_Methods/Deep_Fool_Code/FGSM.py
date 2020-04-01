@@ -10,7 +10,7 @@ def fgsm(model, loss, device, images, labels, eps,is_bayes=False):
         outputs = model(images)
     
     model.zero_grad()
-    print(outputs.shape,labels.shape)
+    # print(outputs.shape,labels.shape)
     cost = loss(outputs, labels).to(device)
     cost.backward()
     
