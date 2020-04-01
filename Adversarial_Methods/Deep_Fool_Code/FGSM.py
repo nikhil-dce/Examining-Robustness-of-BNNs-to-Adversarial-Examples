@@ -1,10 +1,13 @@
 
-def fgsm(model, loss, device, images, labels, eps):
+def fgsm(model, loss, device, images, labels, eps,is_bayes=False):
     import torch
     images = images.to(device)
     labels = labels.to(device)
     images.requires_grad = True
-    outputs = model(images)
+    if(is_bayes):
+        outputs,_ = model(images)
+    else:
+        outputs = model(images)
     
     model.zero_grad()
     cost = loss(outputs, labels).to(device)
