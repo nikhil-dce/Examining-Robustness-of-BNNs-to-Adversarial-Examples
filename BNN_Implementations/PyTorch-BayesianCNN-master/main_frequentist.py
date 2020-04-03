@@ -52,7 +52,7 @@ def validate_model(net, criterion, valid_loader):
 		output = net(data)
 		loss = criterion(output, target)
 		valid_loss += loss.item()*data.size(0)
-		accs.append(metrics.acc(output, target))
+		accs.append(metrics.acc(output.data, target))
 
 	return valid_loss, accs
 

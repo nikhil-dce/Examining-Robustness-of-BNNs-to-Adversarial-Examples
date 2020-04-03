@@ -12,8 +12,7 @@ cifar10_classes = ['airplane', 'automobile', 'bird', 'cat', 'deer',
 
 def logmeanexp(x, dim=None, keepdim=False):
     """Stable computation of log(mean(exp(x))"""
-
-    
+   
     if dim is None:
         x, dim = x.view(-1), 0
     x_max, _ = torch.max(x, dim, keepdim=True)
