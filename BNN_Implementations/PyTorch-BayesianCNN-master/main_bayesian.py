@@ -71,7 +71,8 @@ def train_model(net, optimizer, criterion, trainloader, num_ens=1):
 
 def validate_model(net, criterion, validloader, num_ens=1):
     """Calculate ensemble accuracy and NLL Loss"""
-    net.eval()
+    # net.eval()    
+    net.train(True)
     valid_loss = 0.0
     accs = []
 
@@ -159,7 +160,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = "PyTorch Bayesian Model Training")
     parser.add_argument('--net_type', default='lenet', type=str, help='model')
     parser.add_argument('--dataset', default='MNIST', type=str, help='dataset = [MNIST/CIFAR10/CIFAR100]')
-    parser.add_argument('--evaluate', default=True, type=bool, help='evaluate')
+    parser.add_argument('--evaluate', default=False, type=bool, help='evaluate')
     args = parser.parse_args()
 
     if args.evaluate:

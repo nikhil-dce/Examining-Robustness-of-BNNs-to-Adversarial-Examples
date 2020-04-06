@@ -19,7 +19,19 @@ def fgsm(model, loss, device, images, labels, eps,is_bayes=False):
     
     return attack_images
 
-
+# TODO: Attack with marginalization
+# def bayes_fgsm(model, loss, device, images, labels, eps, J=5):
+#     import torch
+#     images = images.to(device)
+#     labels = labels.to(device)
+#     images.requires_grad = True
+    
+#     # train should be true for marginalization
+#     model.train(True)
+#     outputs = torch.zeros(images.shape[0], model.num_c, J).to(device)
+#     for j in range(J):
+#     outputs,_ = model(images)
+    
 def fgsm_graybox(models, loss, images, labels, eps) :
     # todo: feed in cross-entropy loss for graybox scenario
     
