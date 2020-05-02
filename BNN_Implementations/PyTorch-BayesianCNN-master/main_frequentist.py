@@ -14,6 +14,8 @@ from models.NonBayesianModels.AlexNet import AlexNet
 from models.NonBayesianModels.LeNet import LeNet
 from models.NonBayesianModels.ThreeConvThreeFC import ThreeConvThreeFC
 import metrics
+import pdb
+
 # CUDA settings
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -87,8 +89,7 @@ def run(dataset, net_type):
         train_loss = train_loss/len(train_loader.dataset)
         valid_loss = valid_loss/len(valid_loader.dataset)
             
-        # print('Epoch: {} \tTraining Loss: {:.6f} \tValidation Loss: {:.6f}'.format(epoch, train_loss, valid_loss))
-        print('Epoch: {} \tTraining Loss: {:.4f} \tValidation Loss: {:.4f} \tValidation Accuracy: {:.4f}'.format(
+        print('Epoch: {} \tTraining Loss: {:.6f} \tValidation Loss: {:.6f} \tValidation Accuracy: {:.6f}'.format(
             epoch, train_loss, valid_loss, valid_acc))
         
         # save model if validation loss has decreased
@@ -124,7 +125,7 @@ def evaluate(dataset, net_type):
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description = "PyTorch Frequentist Model Training")
 	parser.add_argument('--net_type', default='lenet', type=str, help='model')
-	parser.add_argument('--dataset', default='MNIST', type=str, help='dataset = [MNIST/CIFAR10/CIFAR100]')
+	parser.add_argument('--dataset', default='FashionMNIST', type=str, help='dataset = [MNIST/CIFAR10/CIFAR100/FashionMNIST]')
 	parser.add_argument('--evaluate', default=False, type=bool, help='')
 	args = parser.parse_args()
 

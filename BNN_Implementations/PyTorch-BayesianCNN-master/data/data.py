@@ -8,7 +8,7 @@ def getDataset(dataset):
     transform = transforms.Compose([
         transforms.Resize((32, 32)),
         transforms.RandomHorizontalFlip(),
-        transforms.RandomRotation(10, fill=(0,)),
+        transforms.RandomRotation(10),
         transforms.ToTensor(),
         ])
 
@@ -27,6 +27,12 @@ def getDataset(dataset):
     elif(dataset == 'MNIST'):
         trainset = torchvision.datasets.MNIST(root='./data', train=True, download=True, transform=transform)
         testset = torchvision.datasets.MNIST(root='./data', train=False, download=True, transform=transform)
+        num_classes = 10
+        inputs = 1
+
+    elif(dataset == 'FashionMNIST'):
+        trainset = torchvision.datasets.FashionMNIST(root='./data', train=True, download=True, transform=transform)
+        testset = torchvision.datasets.FashionMNIST(root='./data', train=False, download=True, transform=transform)
         num_classes = 10
         inputs = 1
 

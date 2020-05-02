@@ -159,7 +159,7 @@ def evaluate(dataset, net_type):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = "PyTorch Bayesian Model Training")
     parser.add_argument('--net_type', default='lenet', type=str, help='model')
-    parser.add_argument('--dataset', default='MNIST', type=str, help='dataset = [MNIST/CIFAR10/CIFAR100]')
+    parser.add_argument('--dataset', default='FashionMNIST', type=str, help='dataset = [MNIST/CIFAR10/CIFAR100/FashionMNIST]')
     parser.add_argument('--evaluate', default=False, type=bool, help='evaluate')
     args = parser.parse_args()
 
