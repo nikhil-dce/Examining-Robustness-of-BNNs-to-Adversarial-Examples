@@ -1,7 +1,8 @@
+## MNIST
 ############### Configuration file for Bayesian ###############
-n_epochs = 30
-lr_start = 0.001
-num_workers = 0
+n_epochs = 50
+lr_start = 0.005
+num_workers = 4
 valid_size = 0.2
 batch_size = 500
 train_ens = 1

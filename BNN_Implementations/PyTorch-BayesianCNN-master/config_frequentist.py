@@ -1,3 +1,4 @@
+## MNIST
 ############### Configuration file for Frequentist ###############
 n_epochs = 50
 lr = 0.01
