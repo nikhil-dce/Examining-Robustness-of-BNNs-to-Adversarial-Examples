@@ -35,8 +35,8 @@ class BBBLinear(ModuleWrapper):
     def reset_parameters(self):
         stdv = 1. / math.sqrt(self.W.size(1))
         self.W.data.uniform_(-stdv, stdv)
-        # self.log_alpha.data.fill_(-5.0)
-        self.log_alpha.data.fill_(0.5)
+        self.log_alpha.data.fill_(-5.0)
+        # self.log_alpha.data.fill_(0.5)
         if self.bias is not None:
             self.bias.data.zero_()
 

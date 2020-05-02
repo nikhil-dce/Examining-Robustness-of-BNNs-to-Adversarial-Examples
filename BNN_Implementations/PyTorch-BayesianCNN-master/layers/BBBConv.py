@@ -48,8 +48,8 @@ class BBBConv2d(ModuleWrapper):
         self.weight.data.uniform_(-stdv, stdv)
         if self.bias is not None:
             self.bias.data.uniform_(-stdv, stdv)
-        # self.log_alpha.data.fill_(-5.0)
-        self.log_alpha.data.fill_(0.5)
+        self.log_alpha.data.fill_(-5.0)
+        # self.log_alpha.data.fill_(0.5)
 
     def forward(self, x):
 

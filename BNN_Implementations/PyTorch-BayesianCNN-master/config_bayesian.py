@@ -1,10 +1,18 @@
 ## MNIST
 ############### Configuration file for Bayesian ###############
-n_epochs = 50
-lr_start = 0.005
+# n_epochs = 50 ## MNIST
+n_epochs = 200 ## FashionMNIST
+
+# lr_start = 0.005
+lr_start=0.001
+# Check layers stdev for cIFAr and MNISt experiments
+# Change the following based on the dataset
+# self.log_alpha.data.fill_(-5.0)
+# self.log_alpha.data.fill_(0.5)
+
 num_workers = 4
 valid_size = 0.2
-batch_size = 500
+batch_size = 256 ## FashionMNIST
 train_ens = 1
 valid_ens = 1
 

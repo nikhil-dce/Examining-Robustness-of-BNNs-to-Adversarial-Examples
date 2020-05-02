@@ -5,12 +5,20 @@ import torchvision.transforms as transforms
 from torch.utils.data.sampler import SubsetRandomSampler
 
 def getDataset(dataset):
-    transform = transforms.Compose([
-        transforms.Resize((32, 32)),
-        transforms.RandomHorizontalFlip(),
-        transforms.RandomRotation(10),
-        transforms.ToTensor(),
-        ])
+    if(dataset == 'CIFAR10'):
+        transform = transforms.Compose([
+            transforms.Resize((32, 32)),
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomRotation(10),
+            transforms.ToTensor(),
+            ])
+    else:
+        transform = transforms.Compose([
+            transforms.Resize((32, 32)),
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomRotation(10, fill=(0,)),
+            transforms.ToTensor(),
+            ])
 
     if(dataset == 'CIFAR10'):
         trainset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
